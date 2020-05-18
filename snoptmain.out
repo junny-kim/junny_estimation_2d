@@ -1,0 +1,23 @@
+
+         ==============================
+         S N O P T  7.5-1.4  (Dec 2015)
+         ==============================
+1
+ 
+
+ SPECS file
+ ----------
+
+      Begin snmain
+         Major iterations               750
+         Major Print level           000001
+      *                             (JFLXBT)
+         Minor print level                1
+         Solution                        No
+      End snmain
+1
+ 
+ SNSPEC EXIT 100 -- finished successfully
+ SNSPEC INFO 101 -- SPECS file read
+      Major Iteration limit                                        10000
+      Minimize

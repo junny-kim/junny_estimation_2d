@@ -1,0 +1,90 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{times}
+
+% numbers option provides compact numerical references in the text. 
+\usepackage[numbers]{natbib}
+\usepackage{multicol}
+
+\input{format}
+\usepackage{needspace}
+\usepackage{color}
+\usepackage{empheq}
+\usepackage{stfloats}
+%\usepackage{cite}
+\usepackage{verbatim}
+\usepackage{url}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
+
+
+\begin{document}
+%	\title{Fast Proximal Gauss-Newton Method for Real-time Constrained Nonlinear Model Predictive Control }
+%	\title{Real-Time Constrained Nonlinear Model Predictive Control for Dynamic Legged Locomotion by Using Fast Proximal Gauss-Newton Method}
+	\title{Real-Time Constrained Nonlinear Model Predictive Control for Dynamic Legged Locomotion}
+	\author{Joon-Ha Kim, Seungwoo Hong, Hae-Won Park}
+	\maketitle
+
+\begin{abstract}
+	 In this paper, we present a novel constrained nonlinear model predictive control framework for legged locomotion. We formulate the orientation error as in the manifold, and derive all necessary derivatives for the gradient and Gauss-Newton Hessian approximation. Furthermore, we extend our previous work to calculate Gauss-Newton Hessian approximation of orientation error in the objective function efficiently. Thanks to the fast nonlinear programming solver introduced in our previous work, we can implement various dynamic legged locomotion in real-time manner. An efficient algorithm to calculate Gauss-Newton Hessian approximation is newly proposed which reduces overall computational time of Gauss-Newton algorithm significantly. We tested the proposed method on a number of benchmark dynamic motion planning problems including nonlinear model predictive control of quadrupedal robots with twelve states and twelve control inputs. The combined framework offers reliable and robust performance on all the tested problems, demonstrating its capability to control a wide range of nonlinear dynamic systems.
+	
+%	This paper presents a novel trajectory optimization method for nonlinear model predictive control. The method solves an optimal control problem of discrete-time nonlinear dynamic systems with input constraints.  To accommodate input constraints, this method combines  Gauss-Newton algorithm for nonlinear least squares problem with a proximal mapping. An efficient algorithm to calculate Gauss-Newton Hessian approximation is newly proposed which reduces overall computational time of Gauss-Newton algorithm significantly. We tested the proposed method on a number of benchmark dynamic motion planning problems including nonlinear model predictive control of quadrupedal robots with twelve states and twelve control inputs. The combined framework offers reliable and robust performance on all the tested problems, demonstrating its capability to control a wide range of nonlinear dynamic systems.
+	
+	%This paper presents a novel trajectory optimization method for nonlinear model predictive control. The method solves an optimal control problem of discrete-time nonlinear dynamic systems with input constraints.  To accommodate input constraints, this method combines  Gauss-Newton algorithm for nonlinear least squares problem with a proximal mapping. An efficient algorithm to calculate Gauss-Newton Hessian approximation is newly proposed which reduces overall computational time of Gauss-Newton algorithm significantly. We tested the proposed method on a number of benchmark dynamic motion planning problems including nonlinear model predictive control of quadrupedal robots with twelve states and twelve control inputs. The combined framework offers reliable and robust performance on all the tested problems, demonstrating its capability to control a wide range of nonlinear dynamic systems.
+	
+	%This paper presents a planning framework for jumping over obstacles with quadruped robots. The framework accomplishes planning via a structured predictive control strategy that combines the use of heterogeneous simplified models over different prediction time scales. A receding multi-horizon predictive controller coordinates the approach before the jump using a kinematic point-mass model. Consideration of the optimal value function over different planning horizons enables the system to select an appropriate number of steps to take before jumping. The jumping motion is then tailored to the sensed obstacle by solving a nonlinear trajectory optimization problem. The solution of this problem online is enabled by exploiting the analyticity of the flow map for a planar bounding template model under polynomial inputs. 
+	%By planning with this combination of models, MIT Cheetah 2 is shown to autonomously jump over obstacles up to 40 cm in height during high-speed bounding. Untethered results showcase the ability of the method to automatically adapt to obstacles of different heights and placements in a single trial. 
+	
+	%We propose new control system components, layered on top of a low-level running controller, which actively modify the approach to a sensed obstacle and select stance force profiles as required to clear it. The approach controller enables the quadruped to end in a preferable location relative to the obstacle just before the jump. This multi-step gait planning  is formulated as a multiple-horizon model predictive control problem and solved at each step through quadratic programming. Ground reaction force profiles to execute the running jump are selected through constrained nonlinear optimization on a simplified model of the robot that possesses polynomial dynamics. Exploiting this structure of these simplified dynamics, the presented method greatly accelerates the computation of otherwise costly function and constraint evaluations that are required during optimization. With these considerations, the new algorithms allow for online planning that is critical for reliable response to unexpected situations. Experimental results, for a stand-alone quadruped with on-board power and computation, show the viability of this approach, and represent important steps towards broader dynamic maneuverability in experimental machines.
+\end{abstract}
+
+\section{Introduction}
+%Due to recent advances in computer hardware systems and optimization algorithms, model predictive control (MPC) has become more plausible control design options for complex dynamic systems~\cite{8594448,8276298,8793669}. In nonlinear MPC design, a control input is chosen as the solution of the trajectory optimization problem of nonlinear systems at every sampling time. Challenges in application of nonlinear MPC arise from limited computation time which is required for real-time implementation and various inequality and equality constraints due to hardware limitation and environments. In this point of view, many algorithms are proposed to solve this trajectory optimization problem efficiently and robustly. 
+%
+%One widely used method for trajectory optimization is direct methods that formulate  optimal control problems into the finite-sized optimization problems treating both states and controls as decision variables~\cite{von1993numerical,patterson2014gpops,8202230}. For nonlinear MPC, this process results in nonlinear programming problems which are solved using general-purpose nonlinear programming (NLP) solvers~\cite{wachter2006implementation,gill2002snopt}. Although it is very easy and simple to apply this method to general optimal control problems, the formulated optimization problem easily become a very large optimization problem for high Degrees of Freedom (DoF) dynamic systems and its performance heavily rely on that of NLP solvers.  %In spite of its simplicity and easiness of application in general optimal control problems, this algorithm hardly utilizes the structure of the optimal control problem, and heavily rely on the performance of NLP solvers.
+%
+%On the other hand, indirect approaches only parameterize controls as decision variables and states are obtained by propagating initial states through a dynamic equation. Differential Dynamic Programming (DDP) is one of such approaches that locally search around current controls and states utilizing derivative information of dynamics and cost. Since DDP decompose a large optimization problem into small sub-problems, it is better fitted to the applications where fast computation is critical such as nonlinear MPC. 
+%However, incorporating constraints is not straightforward in this method, and many modifacations have been proposed rooting back to studies in~\cite{1101692,doi:10.1029/WR015i005p01017} using active-set like algorithms. Originating from these works, more recently, the works in~\cite{6907001} proposes control-limited DDP algorithm that can handle box constraints on control inputs and ~\cite{xie2017differential} proposes algorithm with an ability of handling also state constraints. Augmented Lagrangian  (AL) method is another popular approach incorporating inequality constraints, and recently, a number of algorithms proposed in~\cite{howell2019altro,lantoine2012hybrid} uses it.   
+%
+%%Before application of MPC, controller design for complex dynamic systems relied on heuristically designed control pricinples based upon simplified representation of dynamic models.    
+%
+%In this paper, we present a trajectory optimization framework for input constrained nonlinear model predictive control using Gauss-Newton algorithms combined with proximal operators of an indicator function. Instead of using Hessian, the Gauss-Newton algorithm uses Gauss-Newton Hessian approximation to obtain the line search direction. Unlike other approaches, to handle control input constraints, a proximal operator is applied to the line search direction. A rate of convergence of the algorithm can be improved by scaling a proximal operator with Gauss-Newton Hessian approximation. For linear input inequality constraints, an output of this scaled proximal operator can be obtained by solving simple quadratic programming (QP) problems\footnote{For a convex non-empty set, this problem becomes convex nonlinear programming}.%, hence computationally efficient process using state-of-the-art QP solvers.  
+%
+%To scale the proximal operator, we need to explicitly obtain the Gauss-Newton Hessian approximation matrix of the nonlinear optimal problem which is computationally burdensome. Modern automatic differentiation (AD) tools can be utilized to construct such matrix, but we found that code generation and library building of Gauss-Newton Hessian approximation matrix take a quite amount of time for long horizon MPC problems of dynamic systems. For example, it took 41 minutes for code generation and building of Gauss-Newton Hessian approximation matrix for simple cart-pole optimal control problem with a horizon of $50$ using CppAD~\cite{bell2012cppad} and CppADCodeGen compiled with the Clang compiler~\cite{lattner2008llvm}. To solve this problem, we present a novel algorithm to efficiently calculate Gauss-Newton Hessian approximation similar to the Composite-Rigid-Body algorithm for a joint-space inertia matrix. This similarity is based on the relation between the forward dynamics problem and the linear quadratic optimal control problem established by Gauss's principle~\cite{wieber2005some,vereshchagin1974computer}. This new algorithm reduced computational complexity of Gauss-Newton Hessian approximation from $\mathcal{O}(N^3)$ to $\mathcal{O}(N^2)$ with respect to the horizon length $N$.
+Animals in real world are capable of traversing in a precarious environment. For instance, an ibex can scale up nearly vertical cliffs by controlling and coordinating their dexterous hooves. Those incredible phenomena in nature motivates the realm of legged robotics to mimick the highly dynamic locomotion that animals can achieve. However, control sophisticated dynamic locomotion for legged robots is a demanding problem due to the nonlinear dynamics and the underactuation of the floating base that can only be controlled indirectly by the internal motion of the robot and the external wrenches exerted on the robot. This difficulty is further complicated by the constraints such as friction cone constraints that should be imposed on those external wrenches to avoid slip motion occured. One of the promising approaches that can solve this kind of problem is an optimization based approach that has shown remarkable performance recently.
+
+
+
+The application of MPC on legged robots can be classified into two large groups, convex and nonconvex MPC approaches. Applications of convex MPC from humanoids~\cite{wieber2006trajectory},~\cite{diedam2008online},~\cite{herdt2010online},
+
+In general, those two approaches impose a tradeoff between the model accuracy and computational efficiency. On one hand, convex MPC approaches enable a fast calculation, but their accuracy is deteriorated by approximation of nonlinear dynamics. On the other hand, nonconvex MPC approaches, based on nonlinear optimization, are accurate, but computationally demanding. 
+
+Since computational efficiency is important for controlling dynamic legged locomotion, many researchers choose to approximate the nonlinear dynamics as affine one. Since the convex MPC can be implemented in a real-time manner. 
+
+Linear inverted pendulum model (LIPM), centroidal dynamics, single rigid body dynamics.
+
+Single rigid body dynamics offers a compromise between accuracy and efficiency; however, it is not clear how to parameterize the orientation to perform dynamic maneuvers such a back-flip and wall-climbing motions. 
+
+The above researches adopted Euler angles as the global parameterization for rotations. Using Euler angles as parameterization for rotations is not properly invariant under the action of rigid transformations~\cite{forster2016manifold}. Moreover, Euler angles are known to have singularities. In this study, we address the manifold structure of the rotation group $\mathrm{SO(3)}$. 
+
+In this study, we show that it is possible to overcome this tradeoff. First, we parameterize the orientation error in tangent space of manifold. Second, we propose a novel MPC framework that enables real-time calculation of optimal solutions by using a novel NLP solvers. 
+
+The first step toward this goal is the development of all necessary Jacobians for the optimization. Furthermore, we are able to derive all necessary Jacobians in analytic form: specifically, we report the analytic Jacobians of the sigle rigid body dynamics. Compared with local parameterization or direct linearization on manifold, our method is ...\begin{flushleft}
+	
+\end{flushleft}
+
+\input{State.tex}
+\input{Problem.tex}
+
+%\input{Result.tex}
+
+\section{Conclusion}
+We proposed a new trajectory optimization framework by combining Gauss-Newton algorithm and proximal algorithms to handle inequality constraints on controls. An efficient algorithm is also proposed for fast computation of Gauss-Newton Hessian approximation which achieved significant reduction in computational cost. Through simulation studies, we verified that the proposed algorithm has its benefit in both solve time and objective values for short  horizon MPC problems. For long horizon MPC problems, the algorithm  demonstrated reliable and robust performance providing the lowest objective values for most problem instances among the algorithms we tested  even though the solve time is higher than iLQG. 
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{document}

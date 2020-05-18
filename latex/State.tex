@@ -1,0 +1,83 @@
+% !TEX root = Estimation_Junny.tex
+
+\section{State and Measurement Definition} \label{State_Measurement}
+%In this work, we formulate legged locomotion control problem in terms of the MPC problem. In our model, the MPC leads to a nonlinear programming due to the rotation matrix living on smooth manifolds. This motivates us to use the NMPC approach.
+%In this work, we formulate legged locomotion control problem in terms of the NMPC problem. This is due to the rotation matrix, which lives on smooth manifolds, in our model. Therefore, this render us to use a nonlinear programming to solve the NMPC problem.
+In this section, we define the state and measurement model of legged robot state estimation.
+%Thus, a novel NMPC framework will be introduced in this section. 
+Consider an optimal control problem of discrete-time deterministic system that consists of states $\mathbf{x}_{k} \in \mathbb{R}^{n}$ and control inputs $\mathbf{u}_{k} \in \mathbb{R}^{m}$ with a finite time horizon ${N}$. This optimal control problem consists of three parts. % ;namely, an objective function, dynamics of the system, and contraints of control inputs.
+
+
+
+\begin{tikzpicture}
+[node distance=19mm,auto,>=latex',
+box/.style={draw, minimum size=0.6cm},
+short/.style={node distance=14mm}]
+\node[draw = none] (start) {$\cdots$};
+
+\node[latent, right=0.1 of start] (x0) {$\mathbf{x}_0$};
+
+\node[obs,fill=green, above=1.0 of x0] (i0) {$\mathbf{i}_0$};
+\node[obs,fill=orange, below=1.0 of x0] (tau0) {$\mathbf{\tau}_0$};
+\edge[color=green] {x0} {i0};
+\edge[color=orange] {x0} {tau0};
+
+\node[latent, right=1.0 of x0] (x1) {$\mathbf{x}_1$};
+
+\edge[color=green] {i0} {x1};
+\edge[color=orange] {tau0} {x1};
+
+\node[obs,fill=green, above=1.0 of x1] (i1) {$\mathbf{i}_1$};
+\node[obs,fill=orange, below=1.0 of x1] (tau1) {$\mathbf{\tau}_1$};
+\edge[color=green] {x1} {i1};
+\edge[color=orange] {x1} {tau1};
+
+\node[latent, right=1.0 of x1] (x2) {$\mathbf{x}_2$};
+
+\edge[color=green] {i1} {x2};
+\edge[color=orange] {tau1} {x2};
+
+\node[obs,fill=green, above=1.0 of x2] (i2) {$\mathbf{i}_2$};
+\node[obs,fill=orange, below=1.0 of x2] (tau2) {$\mathbf{\tau}_2$};
+\edge[color=green] {x2} {i2};
+\edge[color=orange] {x2} {tau2};
+
+\node[right=0.1 of x2] (end) {$\cdots$};
+%\node[obs]                    (k)   {$\mathbf{x}_0$}; %
+%\node[latent, right=2 of k]   (l)   {$\lambda$}; %
+%\node[right = 0.7 of k] (dots) {$\cdots$};
+%\edge[draw=none] {k} {l}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+[node distance=19mm,auto,>=latex',
+box/.style={draw, minimum size=0.6cm},
+short/.style={node distance=14mm}]
+\factor[color=blue] {start} {$ \textcolor{blue}{prior}$} {} {};
+
+\node[latent, right=0.5 of start] (x0) {$\mathbf{x}_0$};
+\edge[-,color=blue] {start} {x0};
+\factor[color=green, right=0.35 of x0,yshift=1.0cm] {i0} {$ \textcolor{green}{IMU}$} {} {};
+\factor[color=orange, right=0.35 of x0,yshift=-1.0cm, label=below:$ \textcolor{orange}{\mathbf{TORQUE}}$] {tau0} {} {} {};
+\edge[-,color=green] {x0} {i0};
+\edge[-,color=orange] {x0} {tau0};
+
+\node[latent, right=1.0 of x0] (x1) {$\mathbf{x}_1$};
+
+\edge[-,color=green] {i0} {x1};
+\edge[-,color=orange] {tau0} {x1};
+
+\factor[color=green, right=0.35 of x1,yshift=1.0cm] {i1} {$ \textcolor{green}{IMU}$} {} {};
+\factor[color=orange, right=0.35 of x1,yshift=-1.0cm, label=below:$ \textcolor{orange}{\mathbf{TORQUE}}$] {tau1} {} {} {};
+\edge[-,color=green] {x1} {i1};
+\edge[-,color=orange] {x1} {tau1};
+
+\node[latent, right=1.0 of x1] (x2) {$\mathbf{x}_2$};
+
+\edge[-,color=green] {i1} {x2};
+\edge[-,color=orange] {tau1} {x2};
+
+
+
+\node[right=0.1 of x2] (end) {$\cdots$};
+\end{tikzpicture}

@@ -1,0 +1,172 @@
+
+         ==============================
+         S Q O P T  7.5-1.3  (Oct 2015)
+         ==============================
+1
+ 
+
+ SPECS file
+ ----------
+
+      Begin hs76  (QP from Hock Schittkowski)
+         Iterations               100
+         Print level                1
+         Print   frequency          1
+         Summary frequency          1
+         Scale Option               1
+         Scale Print
+         System information       Yes
+      End   hs76
+      Major Iteration limit                                          250
+1
+ 
+ SQMEM  EXIT 100 -- finished successfully
+ SQMEM  INFO 104 -- memory requirements estimated
+1
+ 
+ Parameters
+ ==========
+
+ Files
+ -----
+ Solution file..........         0       Old basis file ........         0       Standard input.........         5
+ Insert file............         0       New basis file ........         0       (Printer)..............         9
+ Punch file.............         0       Backup basis file......         0       (Specs file)...........         4
+ Load file..............         0       Dump file..............         0       Standard output........         6
+
+ Frequencies
+ -----------
+ Print frequency........         1       Check frequency........        60       Save new basis map.....       100
+ Summary frequency......         1       Factorization frequency        50       Expand frequency.......     10000
+
+ LP/QP Parameters
+ ----------------
+ Minimize...............                 QPsolver Cholesky......                 Cold start.............
+ Scale tolerance........     0.900       Feasibility tolerance..  1.00E-06       Iteration limit........       100
+ Scale option...........         1       Optimality tolerance...  1.00E-06       Print level............         1
+ Crash tolerance........     0.100       Pivot tolerance........  3.25E-11       Elastic mode...........         1
+ Crash option...........         3       Elastic weight.........  1.00E+00       Elastic objective......         2
+                                                                                 Time limit (secs)...... 9999999.0
+
+ Partial pricing
+ ---------------
+ LP Partial price.......         1       Prtl price section ( A)         4       Prtl price section (-I)         3
+ QP Partial price.......         1       Prtl price section ( A)         4       Prtl price section (-I)         3
+
+ QP objective
+ ------------
+ Objective variables....         4       Hessian columns........         4       Superbasics limit......         4
+ Nonlin Objective vars..         4       Unbounded step size....  1.00E+20
+ Linear Objective vars..         4
+
+ Miscellaneous
+ -------------
+ LU factor tolerance....      3.99       LU singularity tol.....  3.25E-11       Timing level...........         3
+ LU update tolerance....      3.99       LU swap tolerance......  1.22E-04       Debug level............         0
+ LU partial  pivoting...                 eps (machine precision)  2.22E-16       System information.....       Yes
+                                                                                 Sticky parameters......        No
+
+ Total char*8  workspace       500       Total integer workspace     20843       Total real    workspace     10749
+ Total char*8  (minimum)       500       Total integer (minimum)       602       Total real    (minimum)       628
+ 
+
+ 
+
+ Matrix statistics
+ -----------------
+               Total      Normal        Free       Fixed     Bounded
+ Rows              3           3           0           0           0
+ Columns           4           4           0           0           0
+
+ No. of matrix elements                   10     Density      83.333
+ Biggest                          4.0000E+00  (excluding fixed columns,
+ Smallest                         1.0000E+00   free rows, and RHS)
+
+ No. of objective coefficients             0
+
+ Nonlinear constraints       0     Linear constraints       3
+ Nonlinear variables         4     Linear variables         0
+ Jacobian  variables         0     Objective variables      4
+ Total constraints           3     Total variables          4
+1
+ 
+ Initial basis
+ -------------
+
+ No basis file supplied
+
+ 
+ Row scales  r(i)      a(i,j)  =  r(i) * scaled a(i,j) / c(j)
+ ----------------
+     1      1.4142
+     2      1.8117
+     3      2.0000
+
+ 
+ Column scales  c(j)      x(j)    =  c(j) * scaled x(j)
+ -------------------
+     1     0.92414
+     2      1.1892
+     3     0.84090
+     4      1.6007
+
+ Crash option  3
+
+ Crash on linear E  rows:
+
+ Crash on linear LG rows:
+ Slacks     3  Free cols     0  Preferred     0
+ Unit       0  Double        0  Triangle      0  Pad     0
+
+ Itn      0: Feasible linear constraints
+
+    Itn pp  QP mult   +SBS   -SBS    -BS     Step    Pivot NonOpt    QP objective     L+U ncp  rgNorm    nS condZHZ
+      0                                                         3 -1.25000000E+00       3
+      1  1 -3.0E+00      2      2      5  5.0E-01 -1.7E+00      3 -3.59375000E+00       5
+      2  1  2.2E+00      3      3         4.3E-01  1.4E+00      1 -4.62500000E+00       5
+      3  1  4.6E-01      1                1.0E+00               1 -4.68055556E+00       5     1.1E-16     1 1.9E+00
+      4  1 -8.9E-02      4                1.0E+00               0 -4.68181818E+00       5                 2 1.6E+00
+1
+ 
+ SQOPT  EXIT   0 -- finished successfully
+ SQOPT  INFO   1 -- optimality conditions satisfied
+
+ Problem name                 HS76
+ No. of iterations                   4   Objective           -4.6818181818E+00
+ No. of Hessian products             9   Linear    objective  0.0000000000E+00
+                                         Quadratic objective -4.6818181818E+00
+ No. of superbasics                  2   No. of basic nonlinears             1
+ No. of degenerate steps             0   Percentage                       0.00
+ Max x       (scaled)        2 1.8E+00   Max pi      (scaled)        1 6.4E-01
+ Max x                       2 2.1E+00   Max pi                      1 4.5E-01
+ Max Prim inf(scaled)        0 0.0E+00   Max Dual inf(scaled)        0 0.0E+00
+ Max Primal infeas           0 0.0E+00   Max Dual infeas             0 0.0E+00
+1
+ 
+ Name           HS76                     Objective Value     -4.6818181818E+00
+
+ Status         Optimal Soln             Iteration      4    Superbasics     2
+
+ Section 1 - Rows
+
+  Number  ...Row.. State  ...Activity...  Slack Activity  ..Lower Limit.  ..Upper Limit.  .Dual Activity    ..i
+ 
+       5  r      1    UL         5.00000          .                None          5.00000        -0.45455      1
+       6  r      2    BS         2.36364        -1.63636           None          4.00000          .           2
+       7  r      3    BS        -2.09091        -0.59091           None         -1.50000          .           3
+1
+ 
+ Section 2 - Columns
+
+  Number  .Column. State  ...Activity...  .Obj Gradient.  ..Lower Limit.  ..Upper Limit.  Reduced Gradnt    m+j
+ 
+       1  x      1   SBS         0.27273        -0.45455          .                None           .           4
+       2  x      2    BS         2.09091        -0.90909          .                None           .           5
+       3  x      3    LL          .              1.27273          .                None          1.72727      6
+       4  x      4   SBS         0.54545        -0.45455          .                None           .           7
+ 
+ Time for MPS input                             0.00 seconds
+ Time for solving problem                       0.03 seconds
+ Time for solution output                       0.00 seconds
+ Time for constraint functions                  0.00 seconds
+ Time for objective function                    0.00 seconds

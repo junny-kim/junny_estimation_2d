@@ -1,0 +1,67 @@
+ 
+
+ Begin snmain3
+ 
+ SNSPEC EXIT 100 -- finished successfully
+ SNSPEC INFO 101 -- SPECS file read
+ 
+ SNMEMA EXIT 100 -- finished successfully
+ SNMEMA INFO 104 -- memory requirements estimated
+ 
+ Scale option  0
+ 
+
+ Nonlinear constraints      14     Linear constraints       5
+ Nonlinear variables         9     Linear variables         0
+ Jacobian  variables         9     Objective variables      9
+ Total constraints          19     Total variables          9
+ 
+ Itn      0: Feasible linear rows
+ Itn      0: PP1.  Minimizing  Norm(x-x0)
+
+ Itn      0: PP1.  Norm(x-x0) approximately minimized  (0.00E+00)
+
+ 
+ The user has defined      49   out of      53   first  derivatives
+ 
+ Itn      0: Hessian set to a scaled identity matrix
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction     nS Penalty
+     0      9               1 (0.0E+00) 5.7E-01  3.1349175E-01      8           r
+ Itn      9: Hessian set to a scaled identity matrix
+     1      8  1.0E+00      2  7.6E-02  1.7E-01  1.0812627E+00      3           r
+     2      3  1.0E+00      4  2.0E-01  8.5E-02  1.4077320E+00      3 3.7E-01 sm
+     3      2  3.5E-02      5  1.9E-01  8.7E-02  1.3381429E+00      2 2.7E+00
+     4      2  1.2E-01      6  1.7E-01  8.3E-02  1.3381985E+00      3 2.7E+00
+     5      1  1.0E+00      7  2.4E-02  1.8E-02  1.3501054E+00      3 2.7E+00
+     6      1  1.0E+00      8  3.1E-03  1.5E-03  1.3499273E+00      3 3.9E+00
+     7      1  1.0E+00      9  1.1E-04  5.9E-04  1.3499623E+00      3 3.9E+00
+     8      1  1.0E+00     10  3.1E-06  7.6E-05  1.3499629E+00      3 3.9E+00
+     9      1  1.0E+00     11 (4.2E-08) 4.4E-06  1.3499629E+00      3 3.9E+00
+
+ Major Minors     Step   nCon Feasible  Optimal  MeritFunction     nS Penalty
+    10      1  1.0E+00     12 (6.7E-11)(5.3E-07) 1.3499629E+00      3 3.9E+00
+ Itn     30 -- Central differences invoked.  Small reduced gradient.
+ 
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
+
+ Problem name
+ No. of iterations                  30   Objective            1.3499628859E+00
+ No. of major iterations            10   Linear    obj. term  0.0000000000E+00
+ Penalty parameter           3.948E+00   Nonlinear obj. term  1.3499628859E+00
+ User function calls (total)        86   Calls with modes 1,2 (known g)     12
+ Calls for forward differencing     48   Calls for central differencing      0
+ No. of superbasics                  3   No. of basic nonlinears             5
+ No. of degenerate steps             0   Percentage                       0.00
+ Max x                       3 1.0E+00   Max pi                     19 1.0E+00
+ Max Primal infeas           0 0.0E+00   Max Dual infeas             2 1.0E-06
+ Nonlinear constraint violn    6.7E-11
+
+ Solution not printed
+ 
+ Time for MPS input                             0.00 seconds
+ Time for solving problem                       0.01 seconds
+ Time for solution output                       0.00 seconds
+ Time for constraint functions                  0.01 seconds
+ Time for objective function                    0.00 seconds
